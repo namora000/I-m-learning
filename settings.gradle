@@ -1,3 +1,4 @@
 rootProject.name = 'I-m-learning'
 include 'common'
+include 'common'
 
