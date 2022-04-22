@@ -3,10 +3,14 @@ project(':common') {
 }
 
 project(':server-core') {
+    apply plugin: 'java'
 }
 project(':server-ui') {
+    apply plugin: 'java'
 }
 project(':tracker-core') {
+    apply plugin: 'java'
 }
 project(':tracker-ui') {
+    apply plugin: 'java'
 }
