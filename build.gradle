@@ -1,3 +1,12 @@
 project(':common') {
     apply plugin: 'java'
 }
+
+project(':server-core') {
+}
+project(':server-ui') {
+}
+project(':tracker-core') {
+}
+project(':tracker-ui') {
+}
