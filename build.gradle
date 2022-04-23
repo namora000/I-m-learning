@@ -1,16 +1,27 @@
-project(':common') {
+subprojects{
     apply plugin: 'java'
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+project(':common') {
+    dependencies{
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.7'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
 }
 
 project(':server-core') {
-    apply plugin: 'java'
+
 }
 project(':server-ui') {
-    apply plugin: 'java'
+
 }
 project(':tracker-core') {
-    apply plugin: 'java'
+
 }
 project(':tracker-ui') {
-    apply plugin: 'java'
+
 }
