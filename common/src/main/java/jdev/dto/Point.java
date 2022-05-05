@@ -3,8 +3,10 @@ package jdev.dto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 
-public class PointDTO {
+
+public class Point {
     private double lat;
     private double lon;
     private String autoId;
@@ -14,7 +16,7 @@ public class PointDTO {
         return lat;
     }
 
-    public void setLat(double lat) {
+    public void setLat(float lat) throws IOException {
         this.lat = lat;
     }
 
