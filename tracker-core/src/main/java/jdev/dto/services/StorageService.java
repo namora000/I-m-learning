@@ -16,14 +16,22 @@ public class StorageService implements StorageInterface{
 
     @Override
     public void setCoordinates(double latitude, double longitude, double altitude, int speed, long time) throws InterruptedException {
-        String coordinate = "coordinates{lat=" + latitude + ", lon=" + longitude + ", alt=" + altitude + ", speed=" + speed + ", time=" + time + '}';
+        String coordinate = "{" +
+                                "\"coordinates\": {" +
+                                    "\"lat\":" + "\"" + latitude + "\", " +
+                                    "\"lon\":" + "\"" + longitude + "\", " +
+                                    "\"alt\":" + "\"" + altitude + "\", " +
+                                    "\"speed\":" + "\"" + speed + "\", " +
+                                    "\"time\":" + "\"" + time + "\""+
+        "}" +
+                            "}";
         setQueue(coordinate);
     }
 
     @Override
     //@Scheduled (fixedDelay = 10000)
     public String getCoordinates() throws InterruptedException {
-        log.info("Погрузка координат в очередь");
+        log.info("Выгрузка координат из очереди");
         return queue.take();
     }
     private void setQueue(String coordinates) throws InterruptedException {
