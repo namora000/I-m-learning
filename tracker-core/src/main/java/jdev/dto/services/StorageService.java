@@ -22,8 +22,8 @@ public class StorageService implements StorageInterface{
                                     "\"lon\":" + "\"" + longitude + "\", " +
                                     "\"alt\":" + "\"" + altitude + "\", " +
                                     "\"speed\":" + "\"" + speed + "\", " +
-                                    "\"time\":" + "\"" + time + "\""+
-        "}" +
+                                    "\"time\":" + "\"" + time + "\"" +
+                                "}" +
                             "}";
         setQueue(coordinate);
     }

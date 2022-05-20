@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.Map;
 
 @Service
 public class SendingService {
@@ -27,13 +28,29 @@ public class SendingService {
 
     @Autowired
     private StorageInterface storageInterface;
-    //@PostConstruct
+    @Autowired
+    RestTemplate restTemplate;
+
+
     @Scheduled(fixedDelay = 500)
     public void sendMessageToServer () throws InterruptedException{
         transmitter(storageInterface.getCoordinates());
     }
 
+    private void transmitter(String coordinates) {
+        try {
+            String url = "http://"+ip+":"+port+"/coords?"+storageInterface.getCoordinates();
+            Country country = restTemplate.getForObject(url, Country.class);
 
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    /*
+    // тестовый метод передачи строки на тестовый сокет-сервер
     private void transmitter(String coordinates) {
         try {
             socket = new Socket(ip, Integer.parseInt(port));
@@ -47,4 +64,14 @@ public class SendingService {
             log.info("IOException: " + e);
         }
     }
+    */
+}
+
+class RestResponse {
+    public String message;
+    public boolean result;
+}
+
+class Country {
+    public RestResponse RestResponse;
 }
