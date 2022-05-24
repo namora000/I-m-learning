@@ -11,6 +11,4 @@ public class Main {
         ApplicationContext context = new AnnotationConfigApplicationContext(TrackerCoreContext.class);
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {return builder.build();}
 }

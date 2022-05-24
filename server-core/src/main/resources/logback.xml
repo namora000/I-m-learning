@@ -2,7 +2,7 @@
 
 <configuration>
 
-    <appender name="ReceiverController" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>gps.log</file>
         <encoder>
             <pattern>%d{dd.MM.yy HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
@@ -16,6 +16,7 @@
     </appender>
 
     <root level="INFO">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT"/>
     </root>
 

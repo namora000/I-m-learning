@@ -2,7 +2,6 @@ package jdev.dto.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -11,11 +10,22 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class StorageService implements StorageInterface{
 
     private static final Logger log = LoggerFactory.getLogger(StorageService.class);
-    private BlockingDeque<String> queue = new LinkedBlockingDeque<>(600);
+    private BlockingDeque<GpsPoint> queue = new LinkedBlockingDeque<>(600);
 
 
     @Override
     public void setCoordinates(double latitude, double longitude, double altitude, int speed, long time) throws InterruptedException {
+
+        GpsPoint point = new GpsPoint();
+        point.setLongitude(Double.toString(longitude));
+        point.setLatitude(Double.toString(latitude));
+        point.setAltitude(Double.toString(altitude));
+        point.setSpeed(Integer.toString(speed));
+        point.setTime(Long.toString(time));
+
+        setQueue(point);
+
+        /* Старый (ручной) метод формирования JSON строки координат
         String coordinate = "{" +
                                 "\"coordinates\": {" +
                                     "\"lat\":" + "\"" + latitude + "\", " +
@@ -26,21 +36,20 @@ public class StorageService implements StorageInterface{
                                 "}" +
                             "}";
         setQueue(coordinate);
+        */
     }
 
     @Override
     //@Scheduled (fixedDelay = 10000)
-    public String getCoordinates() throws InterruptedException {
-        log.info("Выгрузка координат из очереди");
-        return queue.take();
+    public BlockingDeque<GpsPoint> getCoordinates() throws InterruptedException {
+        return queue;
     }
-    private void setQueue(String coordinates) throws InterruptedException {
+    private void setQueue(GpsPoint coordinates) throws InterruptedException {
         queue.put(coordinates);
-        log.info("Получаем координаты.");
     }
 }
 
 interface StorageInterface {
     public void setCoordinates(double latitude, double longitude, double altitude, int speed, long time) throws InterruptedException;
-    public String getCoordinates() throws InterruptedException;
+    public BlockingDeque<GpsPoint> getCoordinates() throws InterruptedException;
 }

@@ -1,16 +1,18 @@
 package jdev.dto.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Map;
 
 @Service
 public class SendingService {
@@ -24,7 +26,7 @@ public class SendingService {
     private Socket socket;
     private ObjectOutputStream out;
 
-
+    private RestTemplateBuilder builder = new RestTemplateBuilder();
 
     @Autowired
     private StorageInterface storageInterface;
@@ -32,25 +34,22 @@ public class SendingService {
     RestTemplate restTemplate;
 
 
-    @Scheduled(fixedDelay = 500)
-    public void sendMessageToServer () throws InterruptedException{
-        transmitter(storageInterface.getCoordinates());
+    @Scheduled(fixedDelay = 2000)
+    public void sendMessageToServer () throws InterruptedException, JsonProcessingException {
+
+        transmitter(storageInterface.getCoordinates().take());
+
     }
 
-    private void transmitter(String coordinates) {
-        try {
-            String url = "http://"+ip+":"+port+"/coords?"+storageInterface.getCoordinates();
-            Country country = restTemplate.getForObject(url, Country.class);
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-
+    @RequestMapping(method = RequestMethod.POST)
+    private void transmitter(GpsPoint coordinates) throws JsonProcessingException {
+        String url = "http://"+ip+":"+port+"/coordinates";
+        String answer = builder.build().postForObject(url, coordinates, String.class);
+        log.info(answer);
     }
 
     /*
-    // тестовый метод передачи строки на тестовый сокет-сервер
+    //старый тестовый метод передачи строки (подготовленной вручную) на тестовый сокет-сервер
     private void transmitter(String coordinates) {
         try {
             socket = new Socket(ip, Integer.parseInt(port));
@@ -67,11 +66,3 @@ public class SendingService {
     */
 }
 
-class RestResponse {
-    public String message;
-    public boolean result;
-}
-
-class Country {
-    public RestResponse RestResponse;
-}
