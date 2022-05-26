@@ -1,11 +1,11 @@
-package jdev.dto;
+package jd.security;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("jdev.dto")
+@ComponentScan("jd.config")
 
 public class Main {
 

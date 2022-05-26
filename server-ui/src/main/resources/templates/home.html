@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+
+    <title>Hello in TOLL</title>
+    </head>
+
+    <body>
+
+        <h1>
+            Добро пожаловать на главную страницу
+        </h1>
+
+        <p>
+            Переход на страницу трекинга : <a th:href="@{routes}">Перейти</a>
+        </p>
+        <p>
+            Переход на страницу дорожной оплаты : <a th:href="@{payments}">Перейти</a>
+        </p>
+
+        <p>
+            Переход на страницу регистрации новых клиентов : <a th:href="@{registerClient}">Перейти</a>
+        </p>
+
+        <p>Переход на страницу регистрации новых менеджеров : <a th:href="@{registerManager}">Перейти</a></p>
+
+    </body>
+</html>

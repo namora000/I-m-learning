@@ -1,32 +1,35 @@
-package config;
-
+package jd.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurity {
-
+public class WebSecurity extends WebSecurityConfigurerAdapter {
+   // @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/css,", "/img", "/login").permitAll()
+                    .antMatchers("/", "/css", "/img").permitAll()
+
+                    .antMatchers("/error", "/home").authenticated()
+
                     .antMatchers("/routes", "/payments").hasRole("CLIENT")
                     .antMatchers("/registerClient").hasRole("MANAGER")
                     .antMatchers("/registerManager").hasRole("ROOT")
-                    .antMatchers("/home").authenticated()
+
                     .anyRequest().hasRole("CLIENT")
                     .anyRequest().hasRole("MANAGER")
                     .anyRequest().hasRole("ROOT")
+
                     .and()
                 .formLogin()
-                    .loginPage("login")
-                    .permitAll()
+                    .loginPage("/login").permitAll()
                     .and()
                 .logout()
                     .permitAll();

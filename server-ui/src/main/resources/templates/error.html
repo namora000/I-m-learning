@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <title>ERROR</title>
+</head>
+  <body>
+
+    <h1 th:inline="text">
+      Вы видете это сообщение потому что что-то пошло не так. Попробуйте закрыть сессию и войти повторно.
+    </h1>
+
+    <p>
+      Вы прошли аутентификацию, по этому Вам доступна эта страница.
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Выполнить LogOut"/>
+    </form>
+
+  </body>
+</html>
