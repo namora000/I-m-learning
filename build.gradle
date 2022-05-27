@@ -8,6 +8,7 @@ subprojects{
     dependencies {
         compile group: 'org.springframework', name: 'spring-context', version: '4.3.7.RELEASE'
         testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
     }
 }
 
@@ -61,6 +62,7 @@ project(':tracker-core') {
         compile("org.springframework.boot:spring-boot-starter-thymeleaf")
         compile("org.springframework.boot:spring-boot-devtools")
         testCompile("org.springframework.boot:spring-boot-starter-test")
+
 
     }
 }
