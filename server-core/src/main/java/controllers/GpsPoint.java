@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GpsPoint {
-    private String longitude;
+
     private String latitude;
+    private String longitude;
     private String altitude;
     private String speed;
     private String time;
@@ -50,13 +51,13 @@ public class GpsPoint {
     @Override
     public String toString() {
         return "{" +
-                "\"coordinates\": {" +
-                "\"lat\":" + "\"" + latitude + "\", " +
-                "\"lon\":" + "\"" + longitude + "\", " +
-                "\"alt\":" + "\"" + altitude + "\", " +
-                "\"speed\":" + "\"" + speed + "\", " +
+                //"\"coordinates\": {" +
+                "\"latitude\":" + "\"" + latitude + "\"," +
+                "\"longitude\":" + "\"" + longitude + "\"," +
+                "\"altitude\":" + "\"" + altitude + "\"," +
+                "\"speed\":" + "\"" + speed + "\"," +
                 "\"time\":" + "\"" + time + "\"" +
-                "}" +
+                //"}" +
                 "}";
     }
 }
