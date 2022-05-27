@@ -25,10 +25,10 @@ public class Response {
     }
     public String toString() {
         return "{" +
-                "\"answer\": {" +
-                "\"message\":" + "\"" + message + "\", " +
-                "\"result\":" + "\"" + result + "\", " +
-                "}" +
+                //"\"answer\": {" +
+                "\"message\":" + "\"" + message + "\"," +
+                "\"result\":" +  result +
+                //"}" +
                 "}";
     }
 }
