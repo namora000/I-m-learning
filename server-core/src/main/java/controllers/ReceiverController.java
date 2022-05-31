@@ -12,8 +12,10 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class ReceiverController {
     private static final Logger log = LoggerFactory.getLogger(ReceiverController.class);
-    @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+    public ReceiverController (@Autowired RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @RequestMapping(value = "/coordinates", method = RequestMethod.POST)
     public String coordinates(@RequestBody GpsPoint point) throws JsonProcessingException {

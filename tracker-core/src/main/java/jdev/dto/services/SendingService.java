@@ -16,36 +16,35 @@ import java.net.Socket;
 
 @Service
 public class SendingService {
-
-    private static final Logger log = LoggerFactory.getLogger(SendingService.class);
-
-    @Value("${server.ip}")
-    private String ip;
-    @Value("${server.port}")
-    private String port;
-    private Socket socket;
-    private ObjectOutputStream out;
-
-    private RestTemplateBuilder builder = new RestTemplateBuilder();
-
     @Autowired
     private StorageInterface storageInterface;
-    @Autowired
-    RestTemplate restTemplate;
+    private static final Logger log = LoggerFactory.getLogger(SendingService.class);
+    private String ip = "127.0.0.1";
+    private String port = "8080";
+    private Socket socket;
+    private ObjectOutputStream out;
+    private RestTemplate restTemplate;
+    private RestTemplateBuilder builder = new RestTemplateBuilder();
+    public SendingService (@Autowired RestTemplate restTemplate,String ip,String port) {
+        this.restTemplate = restTemplate;
+        this.ip = ip;
+        this.port = port;
+    }
 
 
     @Scheduled(fixedDelay = 2000)
     public void sendMessageToServer () throws InterruptedException, JsonProcessingException {
-
+        System.out.println(storageInterface.getCoordinates().size());
         transmitter(storageInterface.getCoordinates().take());
 
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    private void transmitter(GpsPoint coordinates) throws JsonProcessingException {
+    public String transmitter(GpsPoint coordinates) throws JsonProcessingException {
         String url = "http://"+ip+":"+port+"/coordinates";
         String answer = builder.build().postForObject(url, coordinates, String.class);
         log.info(answer);
+        return answer;
     }
 
     /*
