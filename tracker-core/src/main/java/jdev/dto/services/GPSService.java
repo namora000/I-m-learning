@@ -1,6 +1,5 @@
 package jdev.dto.services;
 
-
 import de.micromata.opengis.kml.v_2_2_0.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,10 +16,22 @@ public class GPSService {
     private static final Logger log = LoggerFactory.getLogger(GPSService.class);
     private List<Coordinate> coordinates;
     private int i = 0;
-    double lat = 0.0;
-    double lon = 0.0;
+    private double lat = 0.0;
+    private double lon = 0.0;
+    private boolean test;
+
+    private File path;
 
     public GPSService () {
+        test = false;
+        this.path = new File("tracker-core/src/main/resources/gpsTrack.kml");
+        coordinates = new ArrayList<>();
+        kmlRead();
+        log.info("Конструктор отработал: " + coordinates.size());
+    }
+    public GPSService (File path) {
+        test = true;
+        this.path = path;
         coordinates = new ArrayList<>();
         kmlRead();
         log.info("Конструктор отработал: " + coordinates.size());
@@ -30,7 +41,7 @@ public class GPSService {
     private StorageInterface storageInterface;
 
     @Scheduled (cron = "${cycle}")
-    private void clockCycle() throws InterruptedException {
+    public void clockCycle() throws InterruptedException {
         if(i == -1) {
             log.info("Вы достигли конца маршрута, можно остановить выполнение программы.");
         } else {
@@ -59,8 +70,11 @@ public class GPSService {
 
             //получаем текущее время
             long time = System.currentTimeMillis();
-            storageInterface.setCoordinates(lon, lat, alt, speed, time);
-            //log.info("Test string: " + lon + ", " + lat + ", " + alt + ", " + speed + ", " + time);
+            if(test) {
+                log.info("Test string: " + lon + ", " + lat + ", " + alt + ", " + speed + ", " + time);
+            } else  {
+                storageInterface.setCoordinates(lon, lat, alt, speed, time);
+            }
             increment_i();
         }
     }
@@ -81,7 +95,6 @@ public class GPSService {
 
     // Метод выполняет подключение KML трека и последующий запуск методов, которые парсят данный KML
     private void kmlRead() {
-        File path = new File("tracker-core/src/main/resources/gpsTrack.kml");
         Kml kml = Kml.unmarshal(path);
         Feature feature = kml.getFeature();
         parseFeature(feature);
