@@ -2,7 +2,7 @@ package jdev.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jdev.dto.services.StorageService;
-import jdev.dto.services.GpsPoint;
+import dao.Point;
 import org.junit.Test;
 
 
@@ -29,8 +29,8 @@ public class StorageTest {
         System.out.println("Переданы тестовые координаты: "+lat+", "+lon+", "+alt+", "+speed+", "+time+".");
         assertTrue(storageService.getCoordinates() instanceof BlockingDeque);
         BlockingDeque deque = storageService.getCoordinates();
-        if(deque.take() instanceof GpsPoint);
-        GpsPoint point = (GpsPoint)deque.take();
+        if(deque.take() instanceof Point);
+        Point point = (Point)deque.take();
         System.out.println("\"toJson\" : "+point.toJson());
         System.out.println("\"toString\" : "+point.toString());
     }

@@ -1,16 +1,32 @@
-package jdev.dto.services;
+package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.persistence.*;
+import static javax.persistence.GenerationType.AUTO;
 
-public class GpsPoint {
+@Entity
+@Table(name="points")
+public class Point {
 
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    @Column(name = "ID")
+    private int id;
+    @Column(name = "latitude")
     private String latitude;
+    @Column(name = "longitude")
     private String longitude;
+    @Column(name = "altitude")
     private String altitude;
+    @Column(name = "speed")
     private String speed;
+    @Column(name = "time")
     private String time;
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setLongitude (String longitude) {
         this.longitude = longitude;
     }
@@ -27,6 +43,9 @@ public class GpsPoint {
         this.time = time;
     }
 
+    public int getId() {
+        return id;
+    }
     public String getLongitude() {
         return longitude;
     }
@@ -50,14 +69,11 @@ public class GpsPoint {
 
     @Override
     public String toString() {
-        return "{" +
-                //"\"coordinates\": {" +
-                "\"latitude\":" + "\"" + latitude + "\"," +
-                "\"longitude\":" + "\"" + longitude + "\"," +
-                "\"altitude\":" + "\"" + altitude + "\"," +
-                "\"speed\":" + "\"" + speed + "\"," +
-                "\"time\":" + "\"" + time + "\"" +
-                //"}" +
-                "}";
+        return "Point{ id="+id+
+                ", latitude="+latitude+
+                ", longitude="+longitude+
+                ", altitude="+altitude+
+                ", speed="+speed+
+                ", time="+time+" }";
     }
 }

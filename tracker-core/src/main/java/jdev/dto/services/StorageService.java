@@ -1,5 +1,6 @@
 package jdev.dto.services;
 
+import dao.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,13 +11,13 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class StorageService implements StorageInterface{
 
     private static final Logger log = LoggerFactory.getLogger(StorageService.class);
-    private BlockingDeque<GpsPoint> queue = new LinkedBlockingDeque<>(600);
+    private BlockingDeque<Point> queue = new LinkedBlockingDeque<>(600);
 
 
     @Override
     public void setCoordinates(double latitude, double longitude, double altitude, int speed, long time) throws InterruptedException {
 
-        GpsPoint point = new GpsPoint();
+        Point point = new Point();
         point.setLongitude(Double.toString(longitude));
         point.setLatitude(Double.toString(latitude));
         point.setAltitude(Double.toString(altitude));
@@ -41,10 +42,10 @@ public class StorageService implements StorageInterface{
 
     @Override
     //@Scheduled (fixedDelay = 10000)
-    public BlockingDeque<GpsPoint> getCoordinates() throws InterruptedException {
+    public BlockingDeque<Point> getCoordinates() throws InterruptedException {
         return queue;
     }
-    private void setQueue(GpsPoint coordinates) throws InterruptedException {
+    private void setQueue(Point coordinates) throws InterruptedException {
         queue.put(coordinates);
     }
 }

@@ -1,13 +1,11 @@
 package jdev.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import controllers.GpsPoint;
 import controllers.ReceiverController;
+import dao.Point;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -25,7 +23,7 @@ public class IntegrationTestReceiver {
 
     @Test
     public void receiverControllerTest() throws JsonProcessingException {
-        GpsPoint point = new GpsPoint();
+        Point point = new Point();
         ReceiverController controller = new ReceiverController(new RestTemplate());
         point.setLatitude("38.760888");
         point.setLongitude("44.670992");

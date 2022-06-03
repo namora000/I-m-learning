@@ -5,10 +5,22 @@ subprojects{
         mavenCentral()
         mavenLocal()
     }
+    ext {
+        jettyVersion = "9.4.1.v20170120"
+    }
     dependencies {
         compile group: 'org.springframework', name: 'spring-context', version: '4.3.7.RELEASE'
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
+        compile group: 'com.h2database', name: 'h2', version: '1.4.195'
         testCompile group: 'junit', name: 'junit', version: '4.12'
         testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
+    }
+    jar {
+        baseName = 'jpa-boot'
+        version =  '0.1.0'
     }
 }
 

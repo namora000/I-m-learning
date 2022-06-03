@@ -1,7 +1,7 @@
 package jdev.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdev.dto.services.GpsPoint;
+import dao.Point;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -19,7 +19,7 @@ public class PointTest {
 
     @Test
     public void encodeDto() throws Exception {
-        GpsPoint point = new GpsPoint();
+        Point point = new Point();
         point.setLatitude(lat);
         point.setLongitude(lon);
         point.setAltitude(alt);
@@ -38,7 +38,7 @@ public class PointTest {
     @Test
     public void decodeDto() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        GpsPoint dto = mapper.readValue(json, GpsPoint.class);
+        Point dto = mapper.readValue(json, Point.class);
     }
 
 }

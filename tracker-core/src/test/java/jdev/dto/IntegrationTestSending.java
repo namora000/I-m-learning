@@ -1,14 +1,12 @@
 package jdev.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jdev.dto.services.GpsPoint;
+import dao.Point;
 import jdev.dto.services.SendingService;
 import jdev.dto.services.StorageInterface;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.Assert.*;
@@ -32,7 +30,7 @@ public class IntegrationTestSending {
     @Test
     public void sendingServiceTest() throws JsonProcessingException {
 
-        GpsPoint point = new GpsPoint();
+        Point point = new Point();
         point.setLatitude("38.760888");
         point.setLongitude("44.670992");
         point.setAltitude("97.0");
