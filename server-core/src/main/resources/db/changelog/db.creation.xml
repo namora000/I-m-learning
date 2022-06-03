@@ -15,6 +15,9 @@
                 TIME varchar(32)
             )
 
+        </sql>
+        <sql>
+
             CREATE TABLE USERS
             (
                 ID integer AUTO_INCREMENT PRIMARY KEY,
