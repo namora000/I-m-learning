@@ -12,7 +12,8 @@
                 LONGITUDE varchar(32),
                 ALTITUDE varchar(32),
                 SPEED varchar(32),
-                TIME varchar(32)
+                TIME varchar(32),
+                CAR varchar(32)
             )
 
         </sql>

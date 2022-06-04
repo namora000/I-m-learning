@@ -22,7 +22,7 @@ public class IntegrationTestReceiver {
     ReceiverController receiverController;
 
     @Test
-    public void receiverControllerTest() throws JsonProcessingException {
+    public void receiverControllerTest() throws Exception {
         Point point = new Point();
         ReceiverController controller = new ReceiverController(new RestTemplate());
         point.setLatitude("38.760888");

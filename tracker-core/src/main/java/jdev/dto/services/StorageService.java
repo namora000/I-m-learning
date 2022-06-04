@@ -13,6 +13,9 @@ public class StorageService implements StorageInterface{
     private static final Logger log = LoggerFactory.getLogger(StorageService.class);
     private BlockingDeque<Point> queue = new LinkedBlockingDeque<>(600);
 
+    private int id = 1;
+    private String carNumber = "a007db07";
+
 
     @Override
     public void setCoordinates(double latitude, double longitude, double altitude, int speed, long time) throws InterruptedException {
@@ -23,25 +26,15 @@ public class StorageService implements StorageInterface{
         point.setAltitude(Double.toString(altitude));
         point.setSpeed(Integer.toString(speed));
         point.setTime(Long.toString(time));
+        point.setId(id);
+        point.setCar(carNumber);
 
         setQueue(point);
 
-        /* Старый (ручной) метод формирования JSON строки координат
-        String coordinate = "{" +
-                                "\"coordinates\": {" +
-                                    "\"lat\":" + "\"" + latitude + "\", " +
-                                    "\"lon\":" + "\"" + longitude + "\", " +
-                                    "\"alt\":" + "\"" + altitude + "\", " +
-                                    "\"speed\":" + "\"" + speed + "\", " +
-                                    "\"time\":" + "\"" + time + "\"" +
-                                "}" +
-                            "}";
-        setQueue(coordinate);
-        */
+        id++;
     }
 
     @Override
-    //@Scheduled (fixedDelay = 10000)
     public BlockingDeque<Point> getCoordinates() throws InterruptedException {
         return queue;
     }

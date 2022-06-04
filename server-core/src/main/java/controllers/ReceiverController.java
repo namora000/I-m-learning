@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import services.DBService;
 
 
 @RestController
@@ -18,13 +19,18 @@ public class ReceiverController {
         this.restTemplate = restTemplate;
     }
 
+    @Autowired
+    DBService dbService;
+
     @RequestMapping(value = "/coordinates", method = RequestMethod.POST)
     public String coordinates(@RequestBody Point point) throws JsonProcessingException {
 
         log.info(point.toString());
+        dbService.setPoint(point);
         Response response = new Response();
         response.setMessage("ok");
         response.setResult(true);
+        dbService.run("run");
         return response.toString();
     }
 

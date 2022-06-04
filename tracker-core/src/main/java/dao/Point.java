@@ -3,14 +3,12 @@ package dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.persistence.*;
-import static javax.persistence.GenerationType.AUTO;
 
 @Entity
 @Table(name="points")
 public class Point {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
     @Column(name = "ID")
     private int id;
     @Column(name = "latitude")
@@ -23,6 +21,8 @@ public class Point {
     private String speed;
     @Column(name = "time")
     private String time;
+    @Column(name = "car")
+    private String car;
 
     public void setId(int id) {
         this.id = id;
@@ -41,6 +41,9 @@ public class Point {
     }
     public void setTime (String time) {
         this.time = time;
+    }
+    public void setCar (String car) {
+        this.car = car;
     }
 
     public int getId() {
@@ -61,6 +64,7 @@ public class Point {
     public String getTime() {
         return time;
     }
+    public String getCar() { return car; }
 
     public String toJson() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -74,6 +78,7 @@ public class Point {
                 ", longitude="+longitude+
                 ", altitude="+altitude+
                 ", speed="+speed+
-                ", time="+time+" }";
+                ", time="+time+
+                ", car="+car+" }";
     }
 }
