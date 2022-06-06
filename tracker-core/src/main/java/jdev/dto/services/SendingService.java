@@ -29,8 +29,6 @@ public class SendingService implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(SendingService.class);
     private String ip;
     private String port;
-    private Socket socket;
-    private ObjectOutputStream out;
     private RestTemplate restTemplate;
     private RestTemplateBuilder builder = new RestTemplateBuilder();
     public SendingService (@Autowired RestTemplate restTemplate, String ip, String port) {

@@ -28,5 +28,14 @@
             )
 
         </sql>
+        <sql>
+
+            CREATE TABLE REQUESTS
+            (
+                ID integer AUTO_INCREMENT PRIMARY KEY,
+                REQUEST varchar(32)
+            )
+
+        </sql>
     </changeSet>
 </databaseChangeLog>

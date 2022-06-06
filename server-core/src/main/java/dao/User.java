@@ -1,6 +1,9 @@
 package dao;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.*;
 import static javax.persistence.GenerationType.AUTO;
 
@@ -43,6 +46,11 @@ public class User {
     }
     public String getRole() {
         return role;
+    }
+
+    public String toJson() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(this);
     }
 
     public String toString() {
