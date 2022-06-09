@@ -59,6 +59,12 @@ class TestThread extends Thread {
 
             maxResults.add(Collections.max(results));
 
+            //это условие для проверки работы метода yield()
+            if(message.equalsIgnoreCase("t2")) {
+                yield();
+            }
+
+
             i++;
         }
         Collections.sort(maxResults);
